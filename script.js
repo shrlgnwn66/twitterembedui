@@ -1,26 +1,21 @@
-function ChangeTheme() {
-    try {
-        if($('#checkbox').prop("checked")) {
-            $('body').addClass("darkMode");
-            // $('container').addClass("containerDark");
-            localStorage.setItem("darkmode", 1);
-        } else {
-            $('body').removeClass("darkMode");
-            // $('container').removeClass("containerDark");
-            localStorage.setItem("darkmode", 0);
-        }
+const checkbox = document.getElementById('checkbox');
+const body = document.body;
+const container = document.querySelector('.container');
 
-    } catch (e) {
-        console.log(e.message)
-    } 
+
+if (localStorage.getItem('darkMode') === 'enabled') {
+    checkbox.checked = true;
+    body.classList.add('darkMode');
+    container.classList.add('darkMode');
 }
 
-function checkModeSaved() {
-    try {
-        var dm = localStorage.getItem("darkmode")==1
-        $('#checkbox').prop("checked", dm);
-        ChangeTheme()
-    } catch {
-        console.log(e.message)
+checkbox.addEventListener('change', () => {
+    body.classList.toggle('darkMode');
+    container.classList.toggle('darkMode');
+
+    if (checkbox.checked) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.setItem('darkMode', 'disabled');
     }
-}
+});
